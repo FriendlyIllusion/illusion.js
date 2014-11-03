@@ -1,6 +1,6 @@
 var illusion = (function () {
     function Illusion () {
-        
+
     }
 
     var illusion = {

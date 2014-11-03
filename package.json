@@ -1,0 +1,9 @@
+{
+    "name": "Illusion.js",
+    "description": "",
+    "author": "Master J <j@masterj.net>",
+    "dependencies": {
+        "jquery": ">= 2.1"
+    },
+    "engine": "node 0.10"
+}
