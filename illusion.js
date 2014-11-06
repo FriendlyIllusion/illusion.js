@@ -11,27 +11,25 @@ var illusion = (function () {
         }
     };
 
+
     Illusion.prototype.hooks = function () {
-        $('a').each(function (index, link) {
-            var $link = $(link); // TODO: Look if the links are pointing to another domain
+        var links = document.querySelectorAll('a');
 
-            $link.on("mousedown", function (event) {
+        for (n = 0; n < links.length; n++) {
+            var link = links[n];
+
+            link.addEventListener('mousedown', function (event) {
                 if (event.which == 1) {
-                    var preload = document.createElement('link');
-                    var asdf = $(preload);
-                    //preload.href = $link.href;
-                    //preload.preload = "prefetch";
+                    var preload = document.createElement('link');// TODO: Look if the links are pointing to another domain
 
-                    asdf.attr('href', $link.attr('href'));
-                    asdf.attr('rel', 'prefetch');
+                    preload.href = link.href;
+                    preload.rel = 'prefetch';
 
-                    //asdf.attr('href', $link.attr('href'));
-                    //asdf.attr('rel', 'prerender');
-
-                    document.head.appendChild(preload);
+                    //preload.rel = "prefetch"; // TODO: Add prefetch support
                 }
-            });
-        });
+                document.head.appendChild(preload);
+            }, false); // IE9 < :c
+        }
     };
     return illusion;
 }());
