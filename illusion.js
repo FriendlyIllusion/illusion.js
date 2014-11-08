@@ -25,7 +25,7 @@ var illusion = (function () {
                     preload.href = link.href;
                     preload.rel = 'prefetch';
 
-                    //preload.rel = "prefetch"; // TODO: Add prefetch support
+                    //preload.rel = "preload"; // TODO: Add preload support
                 }
                 document.head.appendChild(preload);
             }, false); // IE9 < :c
