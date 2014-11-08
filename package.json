@@ -1,6 +1,15 @@
 {
     "name": "Illusion.js",
+    "version": "0.1",
     "description": "",
     "author": "Jason Vaillancourt <j@masterj.net>",
-    "engine": "node 0.10"
+    "engine": "node 0.10",
+    "scripts": {
+        "test": "gulp"
+    },
+    "devDependencies": {
+        "gulp-qunit": "~1.0",
+        "gulp-util": "~3.0",
+        "gulp": "~3.8"
+    }
 }
