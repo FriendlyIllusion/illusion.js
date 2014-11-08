@@ -3,7 +3,7 @@ illusion.js
 
 A lightweight JavaScript library that make the web pages load faster for the user.
 
-This library is using link prefetching and preloading on links mousedown event.
+This library is using page prefetching and preloading on links mousedown event.
 
 ## Compatibility
 
