@@ -2,5 +2,20 @@
     "name": "Illusion.js",
     "description": "",
     "author": "Jason Vaillancourt <j@masterj.net>",
-    "engine": "node 0.10"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/FriendlyIllusion/illusion.js.git"
+    },
+    "scripts": {
+        "build": "gulp",
+        "test": "gulp"
+    },
+    "devDependencies": {
+        "gulp": "~3.8",
+        "gulp-qunit": "~1.0",
+        "gulp-util": "~3.0",
+        "gulp-concat": "~2.4",
+        "gulp-uglify": "~1.0",
+        "gulp-sourcemaps": "~1.2"
+    }
 }
