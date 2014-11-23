@@ -5,7 +5,6 @@ function Illusion() {
 Illusion.prototype.hooks = function () {
     var links = document.querySelectorAll('a');
 
-
     for (n = 0; n < links.length; n++) {
         var link = links[n];
 
