@@ -1,8 +1,8 @@
-function Illusion() {
-
+function Prefetch() {
+    this.hooks();
 }
 
-Illusion.prototype.hooks = function () {
+Prefetch.prototype.hooks = function () {
     var links = document.querySelectorAll('a');
 
     for (n = 0; n < links.length; n++) {
@@ -15,14 +15,12 @@ Illusion.prototype.hooks = function () {
                 event = (typeof event === "undefined") ? 1 : event; // Optional arg
 
                 if (event.which == 1) {
-                    var preload = document.createElement('link');
+                    var prefetch = document.createElement('link');
 
-                    preload.rel = 'prefetch';
-                    preload.href = link.href;
+                    prefetch.rel = 'prefetch';
+                    prefetch.href = link.href;
 
-                    //preload.rel = "preload"; // TODO: Add preload support
-
-                    document.head.appendChild(preload);
+                    document.head.appendChild(prefetch);
                 }
             }, false);
         });

@@ -1,13 +1,25 @@
-illusion.js
+Prefetch.js
 ===========
 
-A simple and lightweight JavaScript library that make the web pages load faster for the user.
+A simple JavaScript library that use link prefetching on the mousedown event to cache the page before the user see it.
 
-This library is using page prefetching and preloading on links mousedown event.
+## Installation
+
+Using bower
+
+bower install prefetch.js --save
+
+## Utilisation
+
+Add the following code
+
+```
+var prefetch = new Prefetch();
+```
 
 ## Compatibility
 
+* [Chrome 13+](https://web.archive.org/web/20140928205735/https://developers.google.com/chrome/whitepapers/prerender?csw=1)
 * [Internet Explorer 9+](http://msdn.microsoft.com/en-us/library/ie/dn265039%28v=vs.85%29.aspx)
-* [Firefox 3.5+](http://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ)
-* [Chrome 17+](http://developers.google.com/chrome/whitepapers/prerender)
-* Safari 5+
+* Firefox support link prefetching since 3.5 but not dynamically
+* Safari doesn't support link prefetching
