@@ -1,7 +1,10 @@
 {
     "name": "prefetch.js",
     "version": "0.1",
+    "homepage": "https://github.com/Jarzon/prefetch.js",
     "authors": [
         "Jason Vaillancourt"
-    ]
+    ],
+    "main": "client/prefetch.js",
+    "ignore": []
 }
