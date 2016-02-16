@@ -8,21 +8,17 @@ Prefetch.prototype.hooks = function () {
     for (n = 0; n < links.length; n++) {
         var link = links[n];
 
-        var eventTypes = ['mousedown', 'touchstart'];
+        link.addEventListener('mousedown', function (event) {
+            // Left mouse click
+            if (event.which == 1) {
+                var prefetch = document.createElement('link');
 
-        eventTypes.forEach(function(eventType) {
-            link.addEventListener(eventType, function (event) {
-                event = (typeof event === "undefined") ? 1 : event; // Optional arg
+                prefetch.rel = 'prefetch';
+                prefetch.href = link.href;
 
-                if (event.which == 1) {
-                    var prefetch = document.createElement('link');
+                document.head.appendChild(prefetch);
+            }
 
-                    prefetch.rel = 'prefetch';
-                    prefetch.href = link.href;
-
-                    document.head.appendChild(prefetch);
-                }
-            }, false);
-        });
+        }, false);
     }
 };
