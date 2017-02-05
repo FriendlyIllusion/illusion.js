@@ -1,7 +1,7 @@
 Prefetch.js
 ===========
 
-A proof of concept JS library that use browser link prefetching when the user click on a link to "load the page faster".
+A proof of concept JS library that use browser [link prefetching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) when the user click on a link to "load the page faster".
 Dynamic creation of link prefetching only works in Chrome in Internet Explorer, for now.
 
 ## Installation
