@@ -1,0 +1,23 @@
+{
+  "name": "prefetch.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jarzon/prefetch.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jarzon/prefetch.js.git"
+  },
+  "authors": "Jason Vaillancourt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jarzon/prefetch.js/issues"
+  },
+  "devDependencies": {
+    "chai": "3.5.*",
+    "mocha": "3.2.*",
+    "mocha-phantomjs": "4.1.*",
+    "phantomjs": "2.1.*"
+  },
+  "scripts": {
+    "test": "mocha-phantomjs test/test.html"
+  }
+}
