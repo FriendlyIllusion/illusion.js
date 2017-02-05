@@ -1,7 +1,8 @@
 Prefetch.js
 ===========
 
-A simple JavaScript library that use link prefetching on the mousedown event to cache the page before the user see it.
+A proof of concept JS library that use browser link prefetching when the user click on a link to "load the page faster".
+Dynamic creation of link prefetching only works in Chrome in Internet Explorer, for now.
 
 ## Installation
 
@@ -9,9 +10,9 @@ Using bower
 
 bower install prefetch.js --save
 
-## Utilisation
+## Usage
 
-Add the following code
+Add the following code and that's all
 
 ```
 var prefetch = new Prefetch();

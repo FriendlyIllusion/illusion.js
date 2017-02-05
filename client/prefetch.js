@@ -5,7 +5,7 @@ function Prefetch() {
 Prefetch.prototype.hooks = function () {
     var links = document.querySelectorAll('a');
 
-    for (n = 0; n < links.length; n++) {
+    for (var n = 0; n < links.length; n++) {
         var link = links[n];
 
         link.addEventListener('mousedown', function (event) {
