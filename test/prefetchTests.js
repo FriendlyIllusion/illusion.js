@@ -1,4 +1,4 @@
-// Polyfills
+// Polyfill MouseEvent for PhantomJS
 if(MouseEvent === undefined) {
     function MouseEvent(eventType, params) {
         params = params || { bubbles: false, cancelable: false };
@@ -18,18 +18,16 @@ function simulateMouseDown(element) {
     element.dispatchEvent(ev);
 }
 
-var prefetch;
-
 describe('Prefetch', function() {
     describe('#hooks()', function() {
 
         var el = document.createElement("a");
         el.id = "myLink";
-        el.href = "localhost";
+        el.href = "http://localhost";
         el.innerHTML = "Click me";
         document.body.appendChild(el);
 
-        prefetch = new Prefetch();
+        var prefetch = new Prefetch();
 
         it("shouldn't create any link when no hyperlink have been clicked", function(done) {
             var links = document.querySelectorAll("link[rel=prefetch]");
@@ -47,6 +45,7 @@ describe('Prefetch', function() {
                 var links = document.querySelectorAll("link[rel=prefetch]");
 
                 expect(links.length).to.equal(1);
+                expect(links[0].href).to.equal(el.href);
                 done();
 
             }, 5);
