@@ -1,18 +1,18 @@
 Prefetch.js
 ===========
 
-A proof of concept JS library that use browser [link prefetching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) when the user click on a link to "load the page faster".
+A proof of concept JS library that dynamically use [link prefetching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) when the user click on a link to preload the page.
 Dynamic creation of link prefetching only works in Chrome in Internet Explorer, for now.
 
 ## Installation
 
 Using bower
 
+```
 bower install prefetch.js --save
+```
 
 ## Usage
-
-Add the following code and that's all
 
 ```
 var prefetch = new Prefetch();
