@@ -5,11 +5,13 @@ function Prefetch() {
 Prefetch.prototype.hooks = function () {
     var links = document.querySelectorAll('a');
 
-    for (var n = 0; n < links.length; n++) {
+    var length = links.length;
 
-        links[n].addEventListener('mousedown', function (event) {
-            // Left mouse click
-            if (event.which == 1) {
+    for (var n = 0; n < length; n++) {
+
+        var prefetchFunction = function (event) {
+            // Left mouse click or Touch
+            if (event.constructor.name === 'TouchEvent' || event.which === 1) {
                 var prefetch = document.createElement('link');
 
                 prefetch.rel = 'prefetch';
@@ -18,6 +20,10 @@ Prefetch.prototype.hooks = function () {
                 document.head.appendChild(prefetch);
             }
 
-        }, false);
+        };
+
+        ['touchstart', 'mousedown'].forEach(value => {
+            links[n].addEventListener(value, prefetchFunction, false);
+        });
     }
 };
