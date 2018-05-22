@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Prefetch.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Prefetch.js</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+        </div>
+    </div>
+</nav>
+
+<div role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Prefetch.js Demo</h1>
+            <p>
+                When you look at the prefetch timings there is always something like ~20ms to load the page, because the html isn't rendered.
+                Using the &lt;link rel="prerender"&gt; could lead to instant page load time, but Chrome doesn't support dynamic parsing of prerender link.
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Prefetch on mouse down</h2>
+                <p>
+                    Time to click on the boutton: <b id="click1"></b>ms<br>
+                    Time to load the prefetched page: <b id="load1"></b>ms
+                </p>
+                <a id="prefetch" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?prefetchTest">Show the timings</a>
+            </div>
+
+        <!--<div class="col-md-4">-->
+            <!--<h2>Prerender on mouse down</h2>-->
+            <!--<p>-->
+                <!--Time to click on the boutton: <b id="click3"></b>ms<br>-->
+                <!--Time to load the prerended page: <b id="load3"></b>ms-->
+            <!--</p>-->
+            <!--<a id="prerender" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?prerenderTest">Show the timings</a>-->
+        <!--</div>-->
+
+        <div class="col-md-4">
+            <h2>Basic link</h2>
+            <p>
+                Time to click on the boutton: <b id="click2"></b>ms<br>
+                Time to load the page: <b id="load2"></b>ms
+            </p>
+            <a id="basic" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?noPrefetchTest">Show the timings</a>
+        </div>
+    </div>
+
+    <hr>
+</div>
+
+<script>
+    function parseUrlVars(url) {
+        var urlVars = url.split('?');
+
+        if(Array.isArray(urlVars)) {
+            return urlVars[1];
+        }
+
+        return Array();
+    }
+
+    function parseTimings(testId) {
+        var start = document.cookie.replace(/(?:(?:^|.*;\s*)start\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        var end = document.cookie.replace(/(?:(?:^|.*;\s*)end\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        var elem = document.getElementById('click' + testId);
+        elem.innerHTML = end - start;
+
+        elem = document.getElementById('load' + testId);
+        elem.innerHTML = pagetime - end;
+    }
+
+    var whenVisible = 0;
+    var pagetime = Date.now();
+
+    var urlVars = parseUrlVars(window.location.href);
+
+    var timingTypes = {
+        '': 0,
+        'prefetchTest': 1,
+        'noPrefetchTest': 2
+    };
+
+    console.log(timingTypes[urlVars]);
+
+    parseTimings(timingTypes[urlVars]);
+
+    function mousedown(url)
+    {
+        document.cookie = 'start=' + Date.now();
+
+        if(url.id !== "basic") {
+            var elemts = document.querySelectorAll('link[rel=' + url.id + ']');
+            if(elemts.length === 0) {
+
+                var prefetch = document.createElement('link');
+
+                prefetch.rel = url.id;
+                prefetch.href = url.href;
+
+                document.getElementsByTagName('head')[0].appendChild(prefetch);
+            }
+        }
+    }
+
+    function mouseup()
+    {
+        document.cookie = 'end=' + Date.now();
+    }
+</script>
+</div>
+</body>
+</html>
