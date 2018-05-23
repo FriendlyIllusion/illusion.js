@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>Prefetch.js</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="cache-control" content="public, max-age=5">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 </head>
@@ -46,7 +45,7 @@
                     Time to click on the boutton: <b id="click1"></b>ms<br>
                     Time to load the prefetched page: <b id="load1"></b>ms
                 </p>
-                <a id="prefetch" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?prefetchTest">Show the timings</a>
+                <a id="prefetch" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?action=prefetchTest">Show the timings</a>
             </div>
 
         <!--<div class="col-md-4">-->
@@ -64,7 +63,7 @@
                 Time to click on the boutton: <b id="click2"></b>ms<br>
                 Time to load the page: <b id="load2"></b>ms
             </p>
-            <a id="basic" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?noPrefetchTest">Show the timings</a>
+            <a id="basic" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?action=noPrefetchTest">Show the timings</a>
         </div>
     </div>
 
@@ -75,14 +74,27 @@
     function parseUrlVars(url) {
         var urlVars = url.split('?');
 
-        if(Array.isArray(urlVars)) {
-            return urlVars[1];
+        if(urlVars.length > 1) {
+            var result = {};
+            urlVars[1].split("&").forEach(function(part) {
+                var item = part.split("=");
+                result[item[0]] = decodeURIComponent(item[1]);
+            });
+            return result;
         }
 
         return Array();
     }
 
-    function parseTimings(testId) {
+    var timingTypes = {
+        '': 0,
+        'prefetchTest': 1,
+        'noPrefetchTest': 2
+    };
+
+    function parseTimings(testId = '') {
+        testId = timingTypes[testId];
+
         var start = document.cookie.replace(/(?:(?:^|.*;\s*)start\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         var end = document.cookie.replace(/(?:(?:^|.*;\s*)end\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
@@ -93,20 +105,27 @@
         elem.innerHTML = pagetime - end;
     }
 
-    var whenVisible = 0;
     var pagetime = Date.now();
 
     var urlVars = parseUrlVars(window.location.href);
 
-    var timingTypes = {
-        '': 0,
-        'prefetchTest': 1,
-        'noPrefetchTest': 2
-    };
+    if(!('action' in urlVars)) {
+        urlVars['action'] = '';
+    }
 
-    console.log(timingTypes[urlVars]);
+    var cacheInvalidate = 0;
 
-    parseTimings(timingTypes[urlVars]);
+    if('cacheInvalidate' in urlVars) {
+        cacheInvalidate = parseInt(urlVars['cacheInvalidate']) + 1;
+    }
+
+    var buttonLinks = document.querySelectorAll('.btn');
+
+    for(var link of buttonLinks) {
+        link.href = link.href + "&cacheInvalidate="+cacheInvalidate;
+    }
+
+    parseTimings(urlVars['action']);
 
     function mousedown(url)
     {
