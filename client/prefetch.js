@@ -22,8 +22,10 @@ Prefetch.prototype.hooks = function () {
 
         };
 
-        ['touchstart', 'mousedown'].forEach(value => {
-            links[n].addEventListener(value, prefetchFunction, false);
-        });
+        if(links[n].onclick === null && links[n].onmousedown === null && links[n].onmouseup === null) {
+            ['touchstart', 'mousedown'].forEach(value => {
+                links[n].addEventListener(value, prefetchFunction, false);
+            });
+        }
     }
 };
