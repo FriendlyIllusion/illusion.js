@@ -62,12 +62,12 @@
 
 <script>
     function parseUrlVars(url) {
-        var urlVars = url.split('?');
+        let urlVars = url.split('?');
 
         if(urlVars.length > 1) {
-            var result = {};
+            let result = {};
             urlVars[1].split("&").forEach(function(part) {
-                var item = part.split("=");
+                let item = part.split("=");
                 result[item[0]] = decodeURIComponent(item[1]);
             });
             return result;
@@ -76,7 +76,7 @@
         return Array();
     }
 
-    var timingTypes = {
+    let timingTypes = {
         '': 0,
         'prefetchTest': 1,
         'noPrefetchTest': 2
@@ -85,35 +85,35 @@
     function parseTimings(testId = '') {
         testId = timingTypes[testId];
 
-        var start = document.cookie.replace(/(?:(?:^|.*;\s*)start\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-        var end = document.cookie.replace(/(?:(?:^|.*;\s*)end\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        let start = document.cookie.replace(/(?:(?:^|.*;\s*)start\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        let end = document.cookie.replace(/(?:(?:^|.*;\s*)end\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
-        var elem = document.getElementById('click' + testId);
+        let elem = document.getElementById('click' + testId);
         elem.innerHTML = end - start;
 
         elem = document.getElementById('load' + testId);
         elem.innerHTML = pagetime - end;
     }
 
-    var pagetime = Date.now();
+    let pagetime = Date.now();
 
-    var trigger = false;
+    let trigger = false;
 
-    var urlVars = parseUrlVars(window.location.href);
+    let urlVars = parseUrlVars(window.location.href);
 
     if(!('action' in urlVars)) {
         urlVars['action'] = '';
     }
 
-    var cacheInvalidate = 0;
+    let cacheInvalidate = 0;
 
     if('cacheInvalidate' in urlVars) {
         cacheInvalidate = parseInt(urlVars['cacheInvalidate']) + 1;
     }
 
-    var buttonLinks = document.querySelectorAll('.btn');
+    let buttonLinks = document.querySelectorAll('.btn');
 
-    for(var link of buttonLinks) {
+    for(let link of buttonLinks) {
         link.href = link.href + "&cacheInvalidate="+cacheInvalidate;
     }
 
@@ -126,10 +126,10 @@
         document.cookie = 'start=' + Date.now();
 
         if(url.id !== "basic") {
-            var elemts = document.querySelectorAll('link[rel=' + url.id + ']');
+            let elemts = document.querySelectorAll('link[rel=' + url.id + ']');
             if(elemts.length === 0) {
 
-                var prefetch = document.createElement('link');
+                let prefetch = document.createElement('link');
 
                 prefetch.rel = url.id;
                 prefetch.href = url.href;

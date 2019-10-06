@@ -3,21 +3,25 @@ function Prefetch() {
 }
 
 Prefetch.prototype.hooks = function () {
-    var links = document.querySelectorAll('a');
+    let links = document.querySelectorAll('a');
 
-    var length = links.length;
+    let trigger = false;
 
-    for (var n = 0; n < length; n++) {
+    let length = links.length;
 
-        var prefetchFunction = function (event) {
+    for (let n = 0; n < length; n++) {
+
+        let prefetchFunction = function (event) {
             // Left mouse click or Touch
-            if (event.constructor.name === 'TouchEvent' || event.which === 1) {
-                var prefetch = document.createElement('link');
+            if (!trigger && (event.constructor.name === 'TouchEvent' || event.which === 1)) {
+                let prefetch = document.createElement('link');
 
                 prefetch.rel = 'prefetch';
                 prefetch.href = this.href;
 
                 document.head.appendChild(prefetch);
+
+                trigger = true;
             }
 
         };
