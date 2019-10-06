@@ -31,8 +31,7 @@
         <div class="container">
             <h1>Prefetch.js Demo</h1>
             <p>
-                When you look at the prefetch timings there is always something like ~20ms to load the page, because the html isn't rendered.
-                Using the &lt;link rel="prerender"&gt; could lead to instant page load time, but Chrome doesn't support dynamic parsing of prerender link.
+                Since the page is only the html of the page is fetched there is still a minimal load time. Also most adblockers prevent prefetching.
             </p>
         </div>
     </div>
@@ -47,15 +46,6 @@
                 </p>
                 <a id="prefetch" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?action=prefetchTest">Show the timings</a>
             </div>
-
-        <!--<div class="col-md-4">-->
-            <!--<h2>Prerender on mouse down</h2>-->
-            <!--<p>-->
-                <!--Time to click on the boutton: <b id="click3"></b>ms<br>-->
-                <!--Time to load the prerended page: <b id="load3"></b>ms-->
-            <!--</p>-->
-            <!--<a id="prerender" class="btn btn-default" onmousedown="mousedown(this)" onmouseup="mouseup(this)" href="index.html?prerenderTest">Show the timings</a>-->
-        <!--</div>-->
 
         <div class="col-md-4">
             <h2>Basic link</h2>
@@ -107,6 +97,8 @@
 
     var pagetime = Date.now();
 
+    var trigger = false;
+
     var urlVars = parseUrlVars(window.location.href);
 
     if(!('action' in urlVars)) {
@@ -129,6 +121,8 @@
 
     function mousedown(url)
     {
+        if(trigger) return;
+
         document.cookie = 'start=' + Date.now();
 
         if(url.id !== "basic") {
@@ -141,6 +135,8 @@
                 prefetch.href = url.href;
 
                 document.getElementsByTagName('head')[0].appendChild(prefetch);
+
+                trigger = true;
             }
         }
     }
